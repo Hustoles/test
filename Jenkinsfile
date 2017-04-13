@@ -22,7 +22,16 @@ pipeline {
     }
     stage('OK') {
       steps {
-        echo 'jojojo'
+        parallel(
+          "OK": {
+            echo 'jojojo'
+            
+          },
+          "job": {
+            build 'name'
+            
+          }
+        )
       }
     }
   }
