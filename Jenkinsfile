@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('') {
+    stage('error') {
       steps {
         parallel(
           "TEST2": {
@@ -11,6 +11,10 @@ pipeline {
           },
           "TEST": {
             echo 'AHOj'
+            
+          },
+          "FAIL": {
+            error 'FAILED'
             
           }
         )
