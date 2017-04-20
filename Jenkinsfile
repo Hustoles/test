@@ -45,12 +45,35 @@ pipeline {
     }
     stage('Procced to deploy?') {
       steps {
-        input 'Deploy this project?'
+        parallel(
+          "Procced to deploy?": {
+            input 'Deploy this project?'
+            
+          },
+          "some": {
+            echo 'some'
+            
+          }
+        )
       }
     }
     stage('Deploy to production') {
       steps {
         echo 'copy to folder'
+      }
+    }
+    stage('DIR') {
+      steps {
+        parallel(
+          "DIR": {
+            pwd()
+            
+          },
+          "Time": {
+            timestamps()
+            
+          }
+        )
       }
     }
   }
