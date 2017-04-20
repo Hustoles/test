@@ -43,21 +43,14 @@ pipeline {
         )
       }
     }
-    stage('Deploy') {
+    stage('Procced to deploy?') {
       steps {
-        parallel(
-          "Deploy": {
-            input 'Deploy this project?'
-            
-          },
-          "": {
-            waitUntil() {
-              sleep 10
-            }
-            
-            
-          }
-        )
+        input 'Deploy this project?'
+      }
+    }
+    stage('Deploy to production') {
+      steps {
+        echo 'copy to folder'
       }
     }
   }
