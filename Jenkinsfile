@@ -45,7 +45,7 @@ pipeline {
     }
     stage('Procced to deploy?') {
       steps {
-        input(message: 'Deploy this project?', submitter: 'rmalik,fmacurek')
+        input(message: 'Deploy this project?', submitter: 'fmacurek')
       }
     }
     stage('Deploy to production') {
