@@ -45,35 +45,12 @@ pipeline {
     }
     stage('Procced to deploy?') {
       steps {
-        parallel(
-          "Procced to deploy?": {
-            input 'Deploy this project?'
-            
-          },
-          "some": {
-            echo 'some'
-            
-          }
-        )
+        input(message: 'Deploy this project?', submitter: 'rmalik,fmacurek')
       }
     }
     stage('Deploy to production') {
       steps {
         echo 'copy to folder'
-      }
-    }
-    stage('DIR') {
-      steps {
-        parallel(
-          "DIR": {
-            pwd()
-            
-          },
-          "Time": {
-            timestamps()
-            
-          }
-        )
       }
     }
   }
