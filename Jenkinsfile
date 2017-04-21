@@ -43,9 +43,18 @@ pipeline {
         )
       }
     }
-    stage('Procced to deploy?') {
+    stage('Filip, procced to deploy?') {
       steps {
-        input(message: 'Deploy this project?', submitter: 'fmacurek')
+        parallel(
+          "Filip, proceed to deploy?": {
+            input(message: 'Filip, proceed to deploy?', submitter: 'fmacurek')
+            
+          },
+          "Roman, Proceed to deploy?": {
+            input(message: 'Roman, proceed to deploy?', submitter: 'rmalik')
+            
+          }
+        )
       }
     }
     stage('Deploy to production') {
