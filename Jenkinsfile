@@ -59,16 +59,7 @@ pipeline {
     }
     stage('Deploy to production') {
       steps {
-        parallel(
-          "Deploy to production": {
-            echo 'copy to folder'
-            
-          },
-          "git pull": {
-            git(url: 'URL GIT', branch: 'vybrat BRANCH', changelog: true, credentialsId: 'credintials', poll: true)
-            
-          }
-        )
+        echo 'copy to folder'
       }
     }
   }
