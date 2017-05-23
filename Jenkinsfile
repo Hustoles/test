@@ -51,7 +51,7 @@ pipeline {
             
           },
           "Roman, Proceed to deploy?": {
-            input(message: 'Roman, proceed to deploy?', submitter: 'rmalik')
+            input 'Roman, proceed to deploy?'
             git(url: 'testurl', branch: 'test', credentialsId: 'test', poll: true)
             
           }
