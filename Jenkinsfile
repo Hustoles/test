@@ -47,7 +47,7 @@ pipeline {
       steps {
         parallel(
           "Filip, proceed to deploy?": {
-            input(message: 'Filip, proceed to deploy?', submitter: 'fmacurek')
+            input 'Filip, proceed to deploy?'
             
           },
           "Roman, Proceed to deploy?": {
@@ -60,7 +60,16 @@ pipeline {
     }
     stage('Deploy to production') {
       steps {
-        echo 'copy to folder'
+        parallel(
+          "Deploy to production": {
+            echo 'copy to folder'
+            
+          },
+          "": {
+            sh 'echo "Test of shell script"'
+            
+          }
+        )
       }
     }
   }
