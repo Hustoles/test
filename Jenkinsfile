@@ -6,7 +6,7 @@ pipeline {
     
   }
   stages {
-    stage('') {
+    stage('error') {
       steps {
         parallel(
           "Build": {
@@ -19,9 +19,9 @@ pipeline {
           "Build2": {
             node(label: 'ST_CENTOS') {
               build 'stashtest2'
+              stash(name: 'stash2', allowEmpty: true, includes: 'foo.txt')
             }
             
-            stash 'stash2'
             
           }
         )
