@@ -1,75 +1,39 @@
 pipeline {
-  agent any
+  agent {
+    node {
+      label 'master'
+    }
+    
+  }
   stages {
-    stage('Build') {
-      steps {
-        echo 'Bulding FW - OK'
-        sleep 15
-      }
-    }
-    stage('Build testware') {
+    stage('') {
       steps {
         parallel(
-          "JOB1": {
-            echo 'Bulding testware - OK'
-            sleep 25
+          "Build": {
+            node(label: 'ST_DEBIAN') {
+              build 'stashtest1'
+            }
+            
             
           },
-          "JOB2": {
-            build 'SandBox/TryToRun'
+          "Build2": {
+            node(label: 'ST_CENTOS') {
+              build 'stashtest2'
+            }
+            
+            stash 'stash2'
             
           }
         )
       }
     }
-    stage('Test') {
+    stage('Build3') {
       steps {
-        parallel(
-          "TEST1": {
-            echo 'TEST1 OK'
-            sleep 5
-            
-          },
-          "TEST2": {
-            echo 'TEST2 OK'
-            sleep 20
-            
-          },
-          "TEST300": {
-            echo 'TEST3'
-            sleep 5
-            
-          }
-        )
-      }
-    }
-    stage('Filip, procced to deploy?') {
-      steps {
-        parallel(
-          "Filip, proceed to deploy?": {
-            input 'Filip, proceed to deploy?'
-            
-          },
-          "Roman, Proceed to deploy?": {
-            input 'Roman, proceed to deploy?'
-            git(url: 'testurl', branch: 'test', credentialsId: 'test', poll: true)
-            
-          }
-        )
-      }
-    }
-    stage('Deploy to production') {
-      steps {
-        parallel(
-          "Deploy to production": {
-            echo 'copy to folder'
-            
-          },
-          "": {
-            sh 'echo "Test of shell script"'
-            
-          }
-        )
+        node(label: 'ST_DEBIAN') {
+          unstash 'stash2'
+          build 'stashtest3'
+        }
+        
       }
     }
   }
