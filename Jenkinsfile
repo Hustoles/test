@@ -22,6 +22,7 @@ pipeline {
               stash(name: 'stash2', allowEmpty: true, includes: 'foo.txt')
             }
             
+            dir(path: '/home/svc-ra-cat-stbuild/jenkins/workspace/SECURITY/stashtest2')
             
           }
         )
